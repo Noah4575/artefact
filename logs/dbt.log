@@ -1,0 +1,45 @@
+[0m18:46:33.515060 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B42174DFD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B41E282AD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B423907B10>]}
+
+
+============================== 18:46:33.530423 | 26e29e34-c05a-4ac5-bea1-dc8fdbd25d08 ==============================
+[0m18:46:33.530423 [info ] [MainThread]: Running with dbt=1.11.11
+[0m18:46:33.531360 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'no_print': 'None', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\noahg\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt init air_cote_divoire', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m18:46:33.552523 [info ] [MainThread]: Creating dbt configuration folder at C:\Users\noahg\.dbt
+[0m18:46:33.556132 [debug] [MainThread]: Starter project path: C:\Users\noahg\Documents\Artefact\.venv\Lib\site-packages\dbt\include\starter_project
+[0m18:46:33.608203 [info ] [MainThread]: 
+Your new dbt project "air_cote_divoire" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m18:46:33.609378 [info ] [MainThread]: Setting up your profile.
+[0m18:46:45.790721 [info ] [MainThread]: Profile air_cote_divoire written to C:\Users\noahg\.dbt\profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m18:46:45.792409 [debug] [MainThread]: Command `dbt init` succeeded at 18:46:45.792249 after 12.47 seconds
+[0m18:46:45.792858 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B4239C62C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B422274950>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002B4239ED370>]}
+[0m18:46:45.793332 [debug] [MainThread]: Flushing usage events
+[0m18:46:47.805742 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m15:29:46.764252 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022C733D9FD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022C6FF12AD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022C75597B10>]}
+
+
+============================== 15:29:46.770790 | 4dc36a5d-2dea-40e8-aa79-18061d347b2f ==============================
+[0m15:29:46.770790 [info ] [MainThread]: Running with dbt=1.11.11
+[0m15:29:46.771534 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\noahg\\.dbt', 'use_colors': 'True', 'invocation_command': 'dbt parse', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m15:29:46.772110 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\noahg\Documents\Artefact\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m15:29:46.773878 [debug] [MainThread]: Command `dbt parse` failed at 15:29:46.773733 after 0.17 seconds
+[0m15:29:46.774396 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022C744BB100>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022C744879B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022C7550D8C0>]}
+[0m15:29:46.774841 [debug] [MainThread]: Flushing usage events
+[0m15:29:48.380011 [debug] [MainThread]: An error was encountered while trying to flush usage events
