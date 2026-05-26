@@ -1,0 +1,128 @@
+version: 2
+
+metrics:
+  # ==========================================
+  # BASELINE METRICS (Inputs for complex KPIs)
+  # ==========================================
+  - name: m_flight_passenger_count_sum
+    label: "Total Passengers Boarded"
+    type: simple
+    type_params:
+      measure: flight_passenger_count_sum
+
+  - name: m_flight_seat_capacity_sum
+    label: "Total Seat Capacity"
+    type: simple
+    type_params:
+      measure: flight_seat_capacity_sum
+
+  - name: m_ticket_revenue
+    label: "Base Ticket Revenue"
+    type: simple
+    type_params:
+      measure: ticket_revenue
+
+  - name: m_ancillary_revenue
+    label: "Total Ancillary Revenue"
+    type: simple
+    type_params:
+      measure: ancillary_revenue
+
+  - name: m_total_operating_cost_sum
+    label: "Total Fleet Operating Cost"
+    type: simple
+    type_params:
+      measure: total_operating_cost_sum
+
+  - name: m_delayed_flights_operated
+    label: "Delayed Flights Count"
+    type: simple
+    type_params:
+      measure: delayed_flights_operated
+
+  - name: m_total_flights_operated
+    label: "Total Operated Flights"
+    type: simple
+    type_params:
+      measure: total_flights_operated
+
+  - name: m_total_bookings_count
+    label: "Total Booking Count"
+    type: simple
+    type_params:
+      measure: total_bookings_count
+
+  - name: m_digital_bookings_count
+    label: "Digital Booking Count"
+    type: simple
+    type_params:
+      measure: digital_bookings_count
+
+  # ==========================================
+  # THEME 1: ROUTE OPTIMIZATION & GROWTH KPIs
+  # ==========================================
+  - name: passenger_load_factor_pct
+    label: "Passenger Load Factor (%)"
+    description: "Percentage of total manufactured seat capacity successfully occupied by flying passengers."
+    type: ratio
+    type_params:
+      numerator: 
+        name: m_flight_passenger_count_sum
+      denominator: 
+        name: m_flight_seat_capacity_sum
+
+  - name: gross_combined_revenue_usd
+    label: "Gross Combined Revenue (USD)"
+    description: "Total combined operational cash inflowing from core ticket prices and ancillary add-ons."
+    type: derived
+    type_params:
+      expr: m_ticket_revenue + m_ancillary_revenue
+      metrics:
+        - name: m_ticket_revenue
+        - name: m_ancillary_revenue
+
+  - name: route_contribution_margin_usd
+    label: "Route Contribution Margin (USD)"
+    description: "The absolute profit margin of a network asset after dropping actual fleet operational costs."
+    type: derived
+    type_params:
+      expr: gross_combined_revenue_usd - m_total_operating_cost_sum
+      metrics:
+        - name: gross_combined_revenue_usd
+        - name: m_total_operating_cost_sum
+
+  # ==========================================
+  # THEME 2: CUSTOMER RETENTION KPIs
+  # ==========================================
+  - name: network_delay_rate_pct
+    label: "Network Delay Rate (%)"
+    description: "Proportion of scheduled operations experiencing systemic ground or airborne delays."
+    type: ratio
+    type_params:
+      numerator: 
+        name: m_delayed_flights_operated
+      denominator: 
+        name: m_total_flights_operated
+
+  # ==========================================
+  # THEME 3: UP-SELL / CROSS-SELL KPIs
+  # ==========================================
+  - name: ancillary_yield_per_passenger_usd
+    label: "Ancillary Yield per Passenger (USD)"
+    description: "Average high-margin unbundled revenue extracted per ticket item."
+    type: ratio
+    type_params:
+      numerator: 
+        name: m_ancillary_revenue
+      denominator: 
+        name: m_total_bookings_count
+
+  - name: digital_channel_adoption_rate_pct
+    label: "Digital Channel Adoption Rate (%)"
+    description: "Proportion of volume handled via low-fee direct methods (Web/App) minimizing GDS overhead."
+    type: ratio
+    type_params:
+      numerator: 
+        name: m_digital_bookings_count
+      denominator: 
+        name: m_total_bookings_count
