@@ -1,5 +1,5 @@
 WITH base_bookings AS (
-    SELECT * FROM read_csv_auto('air_cote_divoire_starter_dataset.xlsx - Bookings.csv')
+    SELECT * FROM {{ ref('Bookings') }}
 )
 
 SELECT 

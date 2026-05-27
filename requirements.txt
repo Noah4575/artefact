@@ -1,2 +1,5 @@
 dbt-core
 pandas
+dbt-metricflow
+duckdb-engine
+apache-superset
