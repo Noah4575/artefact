@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: metricflow_time_spine
+    description: "Table de référence temporelle continue requise par MetricFlow"
+    time_spine:
+      standard_granularity_column: date_day  # La colonne pivot pour les jointures temporelles
+    columns:
+      - name: date_day
+        granularity: day  # Déclaration explicite de la maille journalière

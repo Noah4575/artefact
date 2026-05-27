@@ -1,6 +1,6 @@
 -- Read directly from your synthetic output and starter dataset
 WITH base_customers AS (
-    SELECT * FROM read_csv_auto('final_synthetic_reviews.csv')
+    SELECT * FROM {{ ref('final_synthetic_reviews') }}
 )
 
 SELECT 

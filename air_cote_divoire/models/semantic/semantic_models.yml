@@ -1,0 +1,151 @@
+version: 2
+
+semantic_models:
+  # ==========================================
+  # 1. CUSTOMER DIMENSION SEMANTIC MODEL
+  # ==========================================
+  - name: customer_dim
+    model: ref('dim_customers')
+    entities:
+      - name: customer
+        type: primary
+        expr: customer_key
+    dimensions:
+      - name: customer_id
+        type: categorical
+      - name: customer_segment
+        type: categorical
+      - name: loyalty_tier
+        type: categorical
+      - name: preferred_channel
+        type: categorical
+      - name: sentiment_category
+        type: categorical
+
+  # ==========================================
+  # 2. ROUTE DIMENSION SEMANTIC MODEL
+  # ==========================================
+  - name: route_dim
+    model: ref('dim_routes')
+    entities:
+      - name: route
+        type: primary
+        expr: route_key
+    dimensions:
+      - name: route_id
+        type: categorical
+      - name: origin_airport_code
+        type: categorical
+      - name: destination_airport_code
+        type: categorical
+      - name: route_type
+        type: categorical
+
+  # ==========================================
+  # 3. BOOKINGS FACT SEMANTIC MODEL
+  # ==========================================
+  - name: bookings_fact
+    model: ref('fact_bookings')
+    defaults:
+      agg_time_dimension: booking_date
+    entities:
+      - name: booking
+        type: primary
+        expr: booking_key
+      - name: customer
+        type: foreign
+        expr: customer_key
+      - name: flight
+        type: foreign
+        expr: flight_key
+    dimensions:
+      - name: booking_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: booking_channel
+        type: categorical
+      - name: fare_class
+        type: categorical
+      - name: fare_family
+        type: categorical
+      - name: booking_status
+        type: categorical
+    measures:
+      - name: ticket_revenue
+        description: "Gross revenue generated strictly from base ticket sales."
+        expr: ticket_price_usd
+        agg: sum
+      - name: ancillary_revenue
+        description: "Revenue generated from upsells (bags, seat selections, meals)."
+        expr: ancillary_revenue_usd
+        agg: sum
+      - name: total_bookings_count
+        description: "Total volume of individual passenger tickets processed."
+        expr: booking_id
+        agg: count
+      - name: digital_bookings_count
+        description: "Volume of direct-to-consumer digital bookings (App and Web)."
+        expr: "case when booking_channel in ('Mobile App', 'Web') then booking_id else null end"
+        agg: count
+      - name: bags_checked_sum
+        description: "Total number of bags checked across all bookings."
+        expr: bags_count
+        agg: sum
+
+  # ==========================================
+  # 4. FLIGHT PERFORMANCE FACT SEMANTIC MODEL
+  # ==========================================
+  - name: flight_performance_fact
+    model: ref('fact_flight_performance')
+    defaults:
+      agg_time_dimension: flight_date
+    entities:
+      - name: flight
+        type: primary
+        expr: flight_key
+      - name: route
+        type: foreign
+        expr: route_key
+    dimensions:
+      - name: flight_date
+        type: time
+        type_params:
+          time_granularity: day
+      - name: aircraft_type
+        type: categorical
+      - name: flight_status
+        type: categorical
+    measures:
+      - name: flight_seat_capacity_sum
+        description: "Total seats manufactured and available across scheduled legs."
+        expr: seat_capacity
+        agg: sum
+      - name: flight_passenger_count_sum
+        description: "Total physically boarded revenue passengers."
+        expr: passenger_count
+        agg: sum
+      - name: total_delay_minutes
+        description: "Cumulative delay minutes recorded on departures."
+        expr: delay_min
+        agg: sum
+      - name: actual_block_hours_sum
+        description: "True operating time captured from actual arrival minus actual departure."
+        expr: actual_block_hours
+        agg: sum
+      - name: exact_fuel_cost_sum
+        description: "Calculated fuel expense using exact block hours per aircraft burn spec."
+        expr: exact_fuel_cost_usd
+        agg: sum
+      - name: total_operating_cost_sum
+        description: "Sum of exact fuel, operational crew flight pay, and dynamic maintenance wear costs."
+        expr: total_operating_cost_usd
+        agg: sum
+      - name: total_flights_operated
+        description: "Total count of singular flight legs managed in operations."
+        expr: flight_id
+        agg: count
+      - name: delayed_flights_operated
+        description: "Total volume of scheduled legs carrying an official Delayed status."
+        expr: "case when flight_status = 'Delayed' then flight_id else null end"
+        agg: count
